@@ -86,7 +86,15 @@
 							"\r",
 							"pm.test(\"Content-Type is present\", function () {\r",
 							"    pm.response.to.have.header(\"Content-Type\");\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"body validation\",()=>{\r",
+							"    var jsonData=pm.response.json();\r",
+							"    pm.expect(jsonData.lastName).to.eql(\"Fal\")\r",
+							"})\r",
+							"\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
