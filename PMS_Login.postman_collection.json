@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "923337db-2544-44ba-9084-671863bf6736",
+		"name": "PMS_Login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24879958"
+	},
+	"item": [
+		{
+			"name": "PasswordConfiguration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/PasswordConfiguration",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"PasswordConfiguration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login_WithCreds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code 200\",()=>{\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/account/govindjawade19@gmail.com",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"govindjawade19@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account_Otp Sent successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Email\": \"fal@mailinator.com\",\r\n    \"Password\": \"Admin@321\",\r\n    \"isTermAndConditionAccepted\": false,\r\n    \"isNewEntry\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/account",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Otp_User login successfully",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code 200\",()=>{\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"pm.test(\"status code  Value validation\",()=>{\r",
+							"    pm.response.to.have.status(\"OK\")\r",
+							"})\r",
+							"pm.test('Stored Bearer Token set to the environment ', function(){\r",
+							"    const ResponseBody= pm.response.json()\r",
+							"    pm.environment.set('token',ResponseBody.token);\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Assert Response value with environt variable\",()=>{\r",
+							"    pm.expect(pm.response.json().userId).to.eql(pm.environment.get(\"userId\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": \"555555\",\r\n  \"userId\": \"a4650e81-9ac1-441b-90f8-063ff1f30af5\",\r\n  \"isNewEntry\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/account/otp/verify",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"account",
+						"otp",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
