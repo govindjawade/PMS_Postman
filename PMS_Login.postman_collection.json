@@ -76,9 +76,17 @@
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
+							"\r",
+							"pm.test(\"statuscode string\",()=>{\r",
+							"    pm.response.to.have.status(\"OK\")\r",
+							"})\r",
+							"pm.test(\"Response time is less than 350ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
 							"    "
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -97,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Email\": \"fal@mailinator.com\",\r\n    \"Password\": \"Admin@321\",\r\n    \"isTermAndConditionAccepted\": false,\r\n    \"isNewEntry\": true\r\n}",
+					"raw": "{\r\n    \"Email\": \"fal@mailinator.com\",\r\n    \"Password\": \"Admin@12345\",\r\n    \"isTermAndConditionAccepted\": false,\r\n    \"isNewEntry\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
