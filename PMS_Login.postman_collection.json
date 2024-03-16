@@ -83,7 +83,10 @@
 							"pm.test(\"Response time is less than 350ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below();\r",
 							"});\r",
-							"  "
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
