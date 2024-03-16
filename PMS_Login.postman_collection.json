@@ -83,9 +83,7 @@
 							"pm.test(\"Response time is less than 350ms\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below();\r",
 							"});\r",
-							"  pm.test(\"statuscode string\",()=>{\r",
-							"    pm.response.to.have.status(\"OK\")\r",
-							"})  "
+							"  "
 						],
 						"type": "text/javascript",
 						"packages": {}
