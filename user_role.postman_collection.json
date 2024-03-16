@@ -60,7 +60,8 @@
 							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -79,7 +80,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{role:\"Role ek\", \r\nroleDescription: \"qa\"}\r\n",
+					"raw": "{role:\"Medicin provider\", \r\nroleDescription: \"all kind of tablets\"}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,12 +88,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://pmsapi.hplbusiness.com/api/manageuserroles",
-					"protocol": "https",
+					"raw": "{{url}}/api/manageuserroles",
 					"host": [
-						"pmsapi",
-						"hplbusiness",
-						"com"
+						"{{url}}"
 					],
 					"path": [
 						"api",
