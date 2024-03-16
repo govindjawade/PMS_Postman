@@ -33,9 +33,15 @@
 						"exec": [
 							"pm.test(\"status code 200\",()=>{\r",
 							"    pm.response.to.have.status(200)\r",
-							"})"
+							"})\r",
+							"\r",
+							"pm.test(\"ResponseBody\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(true);\r",
+							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
