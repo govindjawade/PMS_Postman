@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "08294580-8b06-45b5-bb05-c3805d827922",
+		"name": "Modifiers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24879958"
+	},
+	"item": [
+		{
+			"name": "GetModiersDeatils",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SearchKey\": null,\r\n    \"codeSearchKey\": null,\r\n    \"nameSearchKey\": null,\r\n    \"Start\": 0,\r\n    \"PageSize\": 10,\r\n    \"SortCol\": \"modifier_asc\",\r\n    \"isNewEntry\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/modifier/getmodifiers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"modifier",
+						"getmodifiers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddModifier",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code name is Conflict\", function () {\r",
+							"    pm.response.to.have.status(\"Conflict\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate Response Body \", ()=>{\r",
+							"    const Responsebody=pm.response.json();\r",
+							"    pm.expect(Responsebody.message).to.eql(\"Record already Exists\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"modifier\": \"40\",\r\n    \"description\": \"MSFMAQVXYQ\",\r\n    \"operationBy\": null,\r\n    \"isActive\": true,\r\n    \"reason\": \"qq\",\r\n    \"moduleName\": \"MOD\",\r\n    \"rowModificationIdentifier\": \"582d4e4c-3442-40fb-bd32-c0582ab95025\",\r\n    \"oldDataJson\": \"{\\\"description\\\":\\\"MSFMAQVXYQ   MSFMAQ  VXYQMSFMAQ  VXYQMSFM  AQVXYQ\\\"}\",\r\n    \"newDataJson\": \"{\\\"description\\\":\\\"MSFMAQVXYQ\\\"}\",\r\n    \"isPushedToEntity\": false,\r\n    \"isEditsPushedToEntity\": null,\r\n    \"entityId\": null,\r\n    \"pushWholeEntry\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/modifier",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"modifier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchModifier",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code is 200\",()=>{\r",
+							"pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"status code name has string\",()=>{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate Response items after Search\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data[0][\"modifier\"]).to.eql('40');\r",
+							"    pm.expect(jsonData.data[0][\"description\"]).to.eql('MSFMAQVXYQ');\r",
+							"    pm.expect(jsonData.data[0][\"isActive\"]).to.eql(true);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Headers content type validation\",()=>{\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"pm.test(\"validate Cookie not present\", () => {\r",
+							"  pm.expect(pm.cookies.has('isLoggedIn')).to.be.false;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time below 400ms\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"})\r",
+							" \r",
+							" pm.test(\"Response with no error\",()=>{\r",
+							"   pm.response.to.not.be.error;\r",
+							" })\t\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"SearchKey\": null,\r\n    \"codeSearchKey\": \"40\",\r\n    \"nameSearchKey\": null,\r\n    \"Start\": 0,\r\n    \"PageSize\": 10,\r\n    \"SortCol\": \"modifier_asc\",\r\n    \"isNewEntry\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/modifier/getmodifiers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"modifier",
+						"getmodifiers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exportModifier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"module\": \"GlobalMasterFiles\",\r\n    \"fileType\": \"xlsx\",\r\n    \"type\": [\r\n        \"mod\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/master/GetImportBlankTemplateFiles",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"master",
+						"GetImportBlankTemplateFiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "importModifier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "file: (binary)\r\nheaders: [\"Modifier\",\"Description\"]\r\nrows: [[\"u0\",\"Amodifier\"],[\"u1\",\"Amodifier\"],[\"u2\",\"Amodifier\"],[\"u3\",\"Amodifier\"],[\"u4\",\"Amodifier\"],[\"u5\",\"Amodifier\"]]",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}{/api/modifier/upload",
+					"host": [
+						"{{url}}{"
+					],
+					"path": [
+						"api",
+						"modifier",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
